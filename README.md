@@ -1,63 +1,46 @@
-## Install Conda Environment
+# Interpretable Contrastive Monte Carlo Tree Search Reasoning
+
+<a href="https://arxiv.org/abs/2410.01707" alt="arXiv">
+    <img src="https://img.shields.io/badge/arXiv-2410.01707-b31b1b.svg?style=flat" /></a>
+
+
+## Install Environment
 ```bash
-conda create -n reasoners python=3.10 -y
-
-conda activate reasoners
-
-pip install exllamav2 torch scikit-build fschat pddl matplotlib protobuf accelerate sentencepiece torch requests psutil numpy transformers shortuuid accelerate optimum
-
-git clone https://github.com/PanQiWei/AutoGPTQ.git && cd AutoGPTQ && MAX_JOBS=40 pip install -vvv --no-build-isolation -e .
-
-git clone https://github.com/Dao-AILab/flash-attention.git && cd flash-attention && MAX_JOBS=40 pip install -e . --no-build-isolation
-```
-
-
-## Install Reasoners
-Ref: https://github.com/maitrix-org/llm-reasoners
-```bash
+conda create -n mcts python=3.10 -y
+conda activate mcts
 pip install -e .
 ```
 
-
 ## Code Index
-Bash script for the blocksworld MCTS experiment:
-[mcts.sh](scripts/blocksworld/mcts.sh)
-
-
-ExllamaV2 inference framework:
-[exllamav2_model.py](reasoners/exllamav2_model.py)
-
-
-MCTS experiment framework:
-[mcts_inference.py](scripts/mcts_inference.py)
-
-
-Main program for MCTS:
-[mcts.py](reasoners/mcts.py)
-
-
-MCTS search configuration:
-[search_config.py](reasoners/search_config.py)
-
-
-Blocksworld step validator, state updates, etc.:
-[world_model.py](reasoners/world_model.py)
-
-
-Blocksworld result validator, ICL prompt construction, etc.:
-[blocksworld.py](reasoners/blocksworld.py)
-
-
-Blocksworld action and plan extractor, etc.:
-[bw_utils.py](reasoners/bw_utils.py)
-
-
-Experiment dataset control flow:
-[base.py](reasoners/base.py)
+```plaintext
+SC_MCTS/
+├── LLMs-Planning/
+├── blocksworld/
+│   ├── data/
+│   │   ├── split_v1/           # Hard mode blocksworld dataset
+│   │   └── split_v2/           # Easy mode blocksworld dataset
+│   └── prompts/
+├── reasoners/
+│   ├── base.py                 # Experiment dataset control flow.
+│   ├── blocksworld.py          # Blocksworld result validator, ICL prompt construction, etc.
+│   ├── bw_utils.py             # Blocksworld action and plan extractor, etc.
+│   ├── exllamav2_model.py      # ExllamaV2 inference framework.
+│   ├── mcts.py                 # Main program for MCTS.
+│   ├── search_config.py        # MCTS search configuration.
+│   └── world_model.py          # Blocksworld step validator, state updates, etc.
+├── scripts/
+│   └── mcts_inference.py       # MCTS experiment framework.
+│   └── mcts.sh                 # MCTS blocksworld experiment script.
+│   └── cot_inference.py        # CoT blocksworld experiment framework.
+│   └── cot.sh                  # CoT blocksworld experiment script.
+├── README.md
+├── setup.py
+└── requirements.txt
+```
 
 
 ## Acknowledgement
-In our code, we referenced some implementation from llm-reasoners (URL: https://github.com/maitrix-org/llm-reasoners). We are very grateful for their outstanding contributions!
+In our code we referenced some implementation from [llm-reasoners](https://github.com/maitrix-org/llm-reasoners). We are very grateful for their outstanding contributions!
 
 
 ### Citation

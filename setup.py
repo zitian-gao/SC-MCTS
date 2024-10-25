@@ -10,7 +10,8 @@ setup(name='reasoners',
       },
       install_requires=[
           'tqdm', 'numpy', 'scipy', 'torch', 'datasets', 'huggingface_hub',
-          'transformers', 'sentencepiece', 'optimum', 'ninja', 'bitsandbytes'
+          'transformers', 'sentencepiece', 'optimum', 'ninja', 'bitsandbytes',
+          'scikit-build', 'pddl', 'matplotlib', 'protobuf', 'accelerate', 'sentencepiece', 'psutil'
       ],
       include_package_data=True,
       python_requires='>=3.10')
