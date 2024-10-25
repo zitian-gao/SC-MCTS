@@ -1,39 +1,22 @@
-import os
-import sys
 from typing import Union, Optional
 import warnings
-import random
-import copy
-import glob
 import time
-import re
-import pickle
 import torch
 import numpy as np
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 from . import LanguageModel, GenerateOutput
-from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch.nn.functional as F
-from reasoners.constants_prompt import *
-import os
-import json
 from datetime import datetime
-import reasoners
-sys.path.append(os.path.join(os.path.dirname(reasoners.__file__), os.path.pardir, 'exllamav2'))
+# sys.path.append(os.path.join(os.path.dirname(reasoners.__file__), os.path.pardir, 'exllamav2'))
 
 from exllamav2 import (
     ExLlamaV2,
     ExLlamaV2Config,
     ExLlamaV2Cache,
-    ExLlamaV2Cache_Q4,
     ExLlamaV2Tokenizer,
-    model_init,
 )
-
-from exllamav2.generator import ExLlamaV2Sampler, ExLlamaV2DynamicGenerator, ExLlamaV2BaseGenerator
-from exllamav2.generator.filters import ExLlamaV2Filter
-
+from exllamav2.generator import ExLlamaV2Sampler, ExLlamaV2DynamicGenerator
 
 class ExLlamaModelV2(LanguageModel):
     def __init__(self,
@@ -232,7 +215,6 @@ class ExLlamaModelV2(LanguageModel):
         return GenerateOutput(decoded_list, None)
 
     
-    # 废弃
     @torch.no_grad()
     def get_next_token_logits(
             self, 
@@ -282,7 +264,6 @@ class ExLlamaModelV2(LanguageModel):
         return logits
     
 
-    # 废弃
     @torch.no_grad()
     def get_loglikelihood(self, 
                           prefix: str, 
@@ -328,7 +309,7 @@ class ExLlamaModelV2(LanguageModel):
                 if contents_tokens[j, i] != self.tokenizer.pad_token_id:  # 如果当前token不是填充符
                     acc_loglikelihood[j] += torch.log(probs[j, contents_tokens[j, i]])  # 将该token的对数概率累加到acc_loglikelihood中
 
-        return [acc_loglikelihood.cpu().numpy()[0]*0.5]
+        return acc_loglikelihood.cpu().numpy()
 
 
     @torch.no_grad()
@@ -367,9 +348,6 @@ class ExLlamaModelV2(LanguageModel):
                                                preprocess_only=False
                                                )[:, prefix_length - 1:-1, :].to("cuda:0")
         
-        
-
-        ################################################# kl和js散度 #####################################################
         softmax_target = F.softmax(target_logits, dim=-1)
         softmax_draft = F.softmax(student_logits, dim=-1)
 
@@ -402,10 +380,6 @@ class ExLlamaModelV2(LanguageModel):
         js_div_batchmean = 0.5 * (kl_div_target_M_batchmean + kl_div_draft_M_batchmean).cpu().numpy()
         js_div_mean = 0.5 * (kl_div_target_M_mean + kl_div_draft_M_mean).sum().item()
 
-
-
-
-        ################################################# 对比logprob ####################################################
         diff_logits = log_softmax_target - log_softmax_draft
 
         # if post_softmax:
@@ -466,61 +440,8 @@ class ExLlamaModelV2(LanguageModel):
 
         # 将累积的对数似然转换为 numpy 数组
         js_div_clamp_batchmean = 0
-        loglikelihood = float(acc_loglikelihood.cpu().numpy()[0])  # 转换为标准 float 类型
-        # print(f"loglikelihood: {loglikelihood}")
+        loglikelihood = float(acc_loglikelihood.cpu().numpy()[0])
 
-        # # 根据 loglikelihood 的值来确定保存路径
-        # if loglikelihood < -610:
-        #     output_dir = f"figs/1/{timestamp}"
-        # elif -610 <= loglikelihood < -595:
-        #     output_dir = f"figs/2/{timestamp}"
-        # else:
-        #     output_dir = f"figs/3/{timestamp}"
-
-        # # 创建相应的文件夹
-        # os.makedirs(output_dir, exist_ok=True)
-
-        # # 绘制图像
-        # # x轴为 token 索引，y轴为对数似然值
-        # token_indices = range(len(loglikelihood_values))
-
-        # # 每个步骤的对数似然均值
-        # loglikelihood_means = [sum(step)*100 / len(step) for step in loglikelihood_values]
-
-        # plt.figure(figsize=(14, 6))
-
-        # # 绘制对数似然均值的曲线
-        # plt.plot(token_indices, loglikelihood_means, marker='o', label='Log-likelihood Mean')
-
-        # # 绘制累加对数似然的曲线
-        # plt.plot(token_indices, accumulated_loglikelihoods, marker='x', label='Accumulated Log-likelihood')
-
-        # plt.xlabel('Token Index')
-        # plt.ylabel('Log-likelihood')
-        # plt.title('Log-likelihood across tokens')
-        # plt.legend()
-        # plt.grid(True)
-
-        # # 保存图像到 figs/timestamp/fig.png
-        # fig_path = os.path.join(output_dir, "fig.png")
-        # plt.savefig(fig_path)
-        # plt.close()
-
-        # # 保存数据到 figs/timestamp/data.json
-        # data = {
-        #     "prefix": prefix,
-        #     "answer": answer,
-        #     "loglikelihood": loglikelihood  # 确保 loglikelihood 是标准的 Python float
-        # }
-
-        # json_path = os.path.join(output_dir, "data.json")
-        # with open(json_path, 'w') as json_file:
-        #     json.dump(data, json_file, indent=4)
-
-
-
-
-        ################################################# critic score ###################################################
         if self.critic:
             with torch.inference_mode():
                 try:
@@ -540,23 +461,15 @@ class ExLlamaModelV2(LanguageModel):
             critic_score = 1
             critic_eval = 1
 
-
-        ############################################ self eval ###########################################################
-        print(f'self_eval_prompt: """\n{self_eval_prompt}\n"""')
+        # print(f'self_eval_prompt: """\n{self_eval_prompt}\n"""')
 
         self_eval = self.get_loglikelihood(self_eval_prompt, 
                                            [self_eval_prompt + "good"])[0]
 
-        self_eval_2 = self.get_loglikelihood(self_eval_prompt, 
-                                            [self_eval_prompt + "good"])[0]*2.0
-
-
         critic_eval = self.get_loglikelihood(self_eval_prompt, 
                                              [self_eval_prompt + "good"],
                                              critic=True)[0]
-        
 
-        ##################################################################################################################
         # cd_logprobs_diff = cd_logprobs_diff * 100
         # norm_cd_logprobs_diff = (cd_logprobs_diff - (-180)) / (-110 - (-180))
 
@@ -609,74 +522,17 @@ class ExLlamaModelV2(LanguageModel):
 
         reward_dict = {
             "control": 1,
-
             "verifier": 0,
-
-            "baseline": loglikelihood+self_eval,
-            "sc_mcts": loglikelihood+self_eval_2,
-            # "sc_mcts": loglikelihood+self_eval+js_div_clamp_batchmean,
-            # "norm_baseline": norm_loglikelihood+norm_self_eval,
-
+            "sc_mcts": loglikelihood+self_eval+js_div_batchmean,
             "loglikelihood": loglikelihood,
-            # "loglikelihood+cd_logprobs_diffx0.1": loglikelihood+cd_logprobs_diff*0.1,
-            # "norm_loglikelihood": norm_loglikelihood,
-            
             "self_eval": self_eval,
-            # "norm_self_eval": norm_self_eval,
-
-            "cd_logprobs_diff": -cd_logprobs_diff,
-            # "transformed_cd_logprobs_diff": transformed_cd_logprobs_diff,
-            # "norm_cd_logprobs_diff": norm_cd_logprobs_diff,
-            # "cd_logprobs_diff+self_eval": cd_logprobs_diff*10+self_eval,
-
+            "cd_logprobs_diff": cd_logprobs_diff,
             "kl_div_mean": kl_div_mean,
-            # "neg_kl_div_mean": -kl_div_mean,
-            # "norm_kl_div_mean": norm_kl_div_mean,
-
             "kl_div_batchmean": kl_div_batchmean,
-            # "norm_kl_div_batchmean": norm_kl_div_batchmean,
-
             "js_div_clamp_batchmean": js_div_clamp_batchmean,
-            # "norm_js_div_clamp_batchmean": norm_js_div_clamp_batchmean,
-
             "js_div_clamp_mean": js_div_clamp_mean,
-            # "norm_js_div_clamp_mean": norm_js_div_clamp_mean,
-
             "js_div_batchmean": js_div_batchmean,
-            # "norm_js_div_batchmean": norm_js_div_batchmean*100,
-
             "js_div_mean": js_div_mean,
-            # "norm_js_div_mean": norm_js_div_mean,
-
-            # "critic_eval": critic_eval*100,
-            # "qwen2_7b_critic_eval": critic_eval,
-            # "qwen2_1.5b_critic_eval": critic_eval,
-            # "qwen2_0.5b_critic_eval": critic_eval,
-            # "norm_critic_eval": norm_critic_eval,
-
-            # "critic_score": critic_score,
-            # "loglikelihood+cd_logprobs_diff": loglikelihood+cd_logprobs_diff,
-            # "baseline+js_div_mean": loglikelihood+self_eval+js_div_mean,
-            # "baseline+cd_logprobs_diff": loglikelihood+self_eval+cd_logprobs_diff,
-            # "baseline+cd_logprobs_diffx0.05": loglikelihood+self_eval+cd_logprobs_diff*0.05,
-            # "baseline+cd_logprobs_diffx0.1": loglikelihood+self_eval+cd_logprobs_diff*0.1,
-            # "baseline+cd_logprobs_diffx0.3": loglikelihood+self_eval+cd_logprobs_diff*0.3,
-            # "baseline+cd_logprobs_diffx0.5": loglikelihood+self_eval+cd_logprobs_diff*0.5,
-            # "baseline+cd_logprobs_diffx0.7": loglikelihood+self_eval+cd_logprobs_diff*0.7,
-
-            # "norm_loglikelihood+norm_critic_eval": norm_loglikelihood+norm_critic_eval,
-
-            # "norm_cd_logprobs_diff+norm_js_div_clamp_batchmean": norm_cd_logprobs_diff+norm_js_div_clamp_batchmean,
-
-            # "norm_loglikelihood+norm_cd_logprobs_diff": norm_loglikelihood+norm_cd_logprobs_diff,
-
-            # "norm_loglikelihood+norm_js_div_clamp_batchmean": norm_loglikelihood+norm_js_div_clamp_batchmean,
-
-            # "norm_loglikelihood+norm_cd_logprobs_diff+norm_js_div_clamp_batchmean": norm_loglikelihood+norm_cd_logprobs_diff+norm_js_div_clamp_batchmean,
-
-            # "norm_loglikelihood+norm_critic_eval": norm_loglikelihood+norm_critic_eval,
-
-            # "norm_loglikelihood+norm_critic_eval+norm_self_eval": norm_loglikelihood+norm_critic_eval+norm_self_eval,
         }
 
         print(f"\nnode_id: {node_id}")
