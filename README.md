@@ -43,7 +43,7 @@ SC_MCTS/
 In our code we referenced some implementation from [llm-reasoners](https://github.com/maitrix-org/llm-reasoners). We are very grateful for their outstanding contributions!
 
 
-### Citation
+## Citation
 ```
 @misc{gao2024interpretablecontrastivemontecarlo,
       title={Interpretable Contrastive Monte Carlo Tree Search Reasoning}, 
