@@ -2,4 +2,4 @@ __pycache__/
 *.egg-info/
 .vscode/
 .trunk/
-ipynb*/
+reasoners/.ipynb_checkpoints/

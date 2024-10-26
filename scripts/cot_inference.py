@@ -1,8 +1,8 @@
-from reasoners.lm import ExLlamaModelV2
-import json
-from reasoners.benchmark import BWEvaluator
+from reasoners.exllamav2_model import ExLlamaModelV2
+from reasoners.blocksworld import BWEvaluator
 import argparse
 import torch
+import json
 
 
 class CoTReasoner():
@@ -51,7 +51,7 @@ def main(base_model,
 
     reasoner = CoTReasoner(base_model,
                            temperature=temperature,
-                           model_type="completion")  # if openai, use "chat"
+                           model_type="completion")
 
     evaluator = BWEvaluator(
         config_file=config_file,
@@ -60,8 +60,8 @@ def main(base_model,
         init_prompt=prompt,
         disable_log=disable_log,
         output_extractor=lambda x: x,
-        sample_prompt_type="rap")  # rap prompt includes cot
-
+        sample_prompt_type="rap")
+    
     accuracy = evaluator.evaluate(reasoner,
                                   shuffle_prompt=True,
                                   num_shot=4,
