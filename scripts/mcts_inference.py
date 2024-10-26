@@ -1,8 +1,5 @@
-import pickle
 from typing import Type, Callable, Optional
 import numpy as np
-from tqdm import tqdm
-from datetime import datetime
 from reasoners import Reasoner, SearchAlgorithm
 from reasoners.blocksworld import BWEvaluator
 from reasoners.mcts import MCTS
@@ -10,9 +7,7 @@ from reasoners.world_model import BlocksWorldModel
 from reasoners.search_config import BWConfig
 from reasoners.exllamav2_model import ExLlamaModelV2
 import argparse
-import os
 import json
-import random
 import torch
 import time
 
@@ -120,29 +115,14 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     device = torch.device('cuda')
-    np.random.seed(1)
-    random.seed(1)
-    torch.manual_seed(1)
-    torch.cuda.manual_seed(1)
-    torch.backends.cudnn.deterministic = True
 
-    if args.exllama_version == 1:
-        llama_model = ExLlamaModel(model_path=args.llama_path,
-                                   draft_model_path=args.draft_model_path,
-                                   lora_dir=None,
-                                   device="cuda",
-                                   max_batch_size=1,
-                                   max_new_tokens=200,
-                                   max_seq_len=16384)
-
-    elif args.exllama_version == 2:
-        llama_model = ExLlamaModelV2(model_path=args.llama_path,
-                                     draft_model_path=args.draft_model_path,
-                                     lora_dir=None,
-                                     device="cuda",
-                                     max_batch_size=1,
-                                     max_new_tokens=200,
-                                     max_seq_len=16384)
+    llama_model = ExLlamaModelV2(model_path=args.llama_path,
+                                    draft_model_path=args.draft_model_path,
+                                    lora_dir=None,
+                                    device="cuda",
+                                    max_batch_size=1,
+                                    max_new_tokens=200,
+                                    max_seq_len=16384)
 
     RAP_bw(
         llama_model,

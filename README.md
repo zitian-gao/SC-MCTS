@@ -29,7 +29,7 @@ SC_MCTS/
 │   ├── search_config.py        # MCTS search configuration.
 │   └── world_model.py          # Blocksworld step validator, state updates, etc.
 ├── scripts/
-│   └── mcts_inference.py       # MCTS experiment framework.
+│   └── mcts_inference.py       # MCTS blocksworld experiment framework.
 │   └── mcts.sh                 # MCTS blocksworld experiment script.
 │   └── cot_inference.py        # CoT blocksworld experiment framework.
 │   └── cot.sh                  # CoT blocksworld experiment script.

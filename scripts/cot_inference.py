@@ -6,7 +6,6 @@ import torch
 
 
 class CoTReasoner():
-
     def __init__(self, base_model, temperature=0.8, model_type="completion"):
         self.base_model = base_model
         self.temperature = temperature
@@ -82,30 +81,21 @@ if __name__ == "__main__":
     parser.add_argument("--draft_model_path", type=str, default=None)
     parser.add_argument("--data_path", type=str, required=True)
     parser.add_argument("--prompt_path", type=str, required=True)
-    parser.add_argument("--exllama_version", type=int, required=True)
+    parser.add_argument("--exllama_version", type=int, default=2)
 
     # optional
     parser.add_argument("--depth_limit", type=int, default=8)
     args = parser.parse_args()
+
     device = torch.device('cuda')
 
-    if args.exllama_version == 1:
-        llama_model = ExLlamaModel(model_dir=args.llama_path,
-                                    student_lm_dir=None,
+    llama_model = ExLlamaModelV2(model_path=args.llama_path,
+                                    draft_model_path=args.draft_model_path,
                                     lora_dir=None,
                                     device="cuda",
                                     max_batch_size=1,
                                     max_new_tokens=200,
-                                    max_seq_length=4096)
-        
-    elif args.exllama_version == 2:
-        llama_model = ExLlamaModelV2(model_path=args.llama_path,
-                                     draft_model_path=args.draft_model_path,
-                                     lora_dir=None,
-                                     device="cuda",
-                                     max_batch_size=1,
-                                     max_new_tokens=200,
-                                     max_seq_len=16384)
+                                    max_seq_len=16384)
 
     main(base_model=llama_model,
          prompt_path=args.prompt_path,
