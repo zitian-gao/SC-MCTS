@@ -3,3 +3,5 @@ __pycache__/
 .vscode/
 .trunk/
 reasoners/.ipynb_checkpoints/
+tmp_plan.txt
+install_env.sh

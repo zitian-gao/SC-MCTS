@@ -53,9 +53,9 @@ run_blocksworld() {
 
     local prompt_path=""
     if [ "$version" -eq 1 ]; then
-        prompt_path="datasets/blocksworld/prompts/pool_prompt_v1.json"
+        prompt_path="blocksworld/prompts/pool_prompt_v1.json"
     else
-        prompt_path="datasets/blocksworld/prompts/pool_prompt_v${version}_step_${step}.json"
+        prompt_path="blocksworld/prompts/pool_prompt_v${version}_step_${step}.json"
     fi
 
     # 修改 CUDA_VISIBLE_DEVICES，以支持多个 GPU，例如 "0,1,2"
@@ -64,20 +64,20 @@ run_blocksworld() {
     local log_file="log/blocksworld/cot/${log_name}.log"
 
     if [ -n "$start_idx" ]; then
-        python scripts/blocksworld/cot_inference.py --llama_path "$llama_path" \
+        python scripts/cot_inference.py --llama_path "$llama_path" \
                                                     --draft_model_path "$draft_model_path" \
                                                     --depth_limit "$step" \
                                                     --exllama_version "$exllama_version" \
-                                                    --data_path "datasets/blocksworld/data/split_v${version}/split_v${version}_step_${step}_data.json" \
+                                                    --data_path "blocksworld/data/split_v${version}/split_v${version}_step_${step}_data.json" \
                                                     --prompt_path "$prompt_path" \
                                                     --start_idx "$start_idx" \
                                                     >> "$log_file" 2>&1 &
     else
-        python scripts/blocksworld/cot_inference.py --llama_path "$llama_path" \
+        python scripts/cot_inference.py --llama_path "$llama_path" \
                                                     --draft_model_path "$draft_model_path" \
                                                     --depth_limit "$step" \
                                                     --exllama_version "$exllama_version" \
-                                                    --data_path "datasets/blocksworld/data/split_v${version}/split_v${version}_step_${step}_data.json" \
+                                                    --data_path "blocksworld/data/split_v${version}/split_v${version}_step_${step}_data.json" \
                                                     --prompt_path "$prompt_path" \
                                                     > "$log_file" 2>&1 &
     fi
@@ -158,10 +158,10 @@ schedule_tasks() {
 # 任务排队（顺序为 version 1 的所有任务和 version 2 的所有任务）
 tasks=(
     "2 6"
-    "2 8"
-    "2 10"
-    "2 4"
-    "2 12"
+    # "2 8"
+    # "2 10"
+    # "2 4"
+    # "2 12"
 )
 
 # 可用的 GPU 列表（更新以支持多个 GPU 分配）
@@ -171,8 +171,9 @@ gpus=(
 )
 
 # llama_path 和 draft_model_path 的设置
-llama_path="/hy-tmp/Meta-Llama-3.1-405B-Instruct-GPTQ-INT4"  # 需要三个 GPU 的任务
-draft_model_path="/hy-tmp/Llama-3.2-1B-4bit-128g"
-
+# llama_path="/hy-tmp/Meta-Llama-3.1-405B-Instruct-GPTQ-INT4"  # 需要三个 GPU 的任务
+# draft_model_path="/hy-tmp/Llama-3.2-1B-4bit-128g"
+llama_path="/home/gzt/models/Llama-3.2-3B-Instruct"
+draft_model_path="/home/gzt/models/Llama-3.2-1B-Instruct"
 # 调度任务
 schedule_tasks tasks "${gpus[@]}"

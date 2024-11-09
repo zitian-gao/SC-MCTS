@@ -225,7 +225,7 @@ class MCTS(SearchAlgorithm, Generic[State, Action, Example]):
             "max_iter",
             "last_iter",
             "last_terminal_iter",
-        ]  # 验证输出策略的有效性
+        ]
 
         self.output_strategy = output_strategy  # 设置输出策略
 

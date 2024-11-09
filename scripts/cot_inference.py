@@ -43,8 +43,8 @@ def main(base_model,
          log_dir=None,
          disable_log=False):
 
-    config_file = "examples/CoT/blocksworld/data/bw_config.yaml"
-    domain_file = "examples/CoT/blocksworld/data/generated_domain.pddl"
+    config_file = "blocksworld/data/bw_config.yaml"
+    domain_file = "blocksworld/data/generated_domain.pddl"
 
     with open(prompt_path) as f:
         prompt = json.load(f)

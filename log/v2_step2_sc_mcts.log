@@ -1,0 +1,883 @@
+/home/gzt/anaconda3/envs/reasoners/lib/python3.10/site-packages/xformers/ops/fmha/flash.py:211: FutureWarning: `torch.library.impl_abstract` was renamed to `torch.library.register_fake`. Please use that instead; we will remove `torch.library.impl_abstract` in a future version of PyTorch.
+  @torch.library.impl_abstract("xformers_flash::flash_fwd")
+/home/gzt/anaconda3/envs/reasoners/lib/python3.10/site-packages/xformers/ops/fmha/flash.py:344: FutureWarning: `torch.library.impl_abstract` was renamed to `torch.library.register_fake`. Please use that instead; we will remove `torch.library.impl_abstract` in a future version of PyTorch.
+  @torch.library.impl_abstract("xformers_flash::flash_bwd")
+
+blocksworld:   0%|          | 0/37 [00:00<?, ?it/s]
+data idx: 0
+
+node_id: 0
+action: unstack the blue block from on top of the red block
+control: 1
+verifier: 0
+sc_mcts: -638.8624877929688
+loglikelihood: -638.7492065429688
+self_eval: -0.615234375
+cd_logprobs_diff: -150.6484375
+kl_div_mean: -0.0013828277587890625
+kl_div_batchmean: -177.375
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -2.3543834686279297e-05
+js_div_batchmean: 0.501953125
+js_div_mean: 3.904104232788086e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+node_id: 0
+action: pick up the orange block
+control: 1
+verifier: 0
+sc_mcts: -640.3314819335938
+loglikelihood: -640.1769409179688
+self_eval: -0.489013671875
+cd_logprobs_diff: -65.671875
+kl_div_mean: -0.0005764961242675781
+kl_div_batchmean: -73.9375
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -1.5974044799804688e-05
+js_div_batchmean: 0.33447265625
+js_div_mean: 2.592802047729492e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+input: ['I am playing with a set of blocks where I need to arrange the blocks into stacks. Here are the actions I can do \n\nPick up a block \nUnstack a block from on top of another block \nPut down a block \nStack a block on top of another block \n\nI have the following restrictions on my actions:\nI can only pick up or unstack one block at a time. \nI can only pick up or unstack a block if my hand is empty. \nI can only pick up a block if the block is on the table and the block is clear. A block is clear if the block has no other blocks on top of it and if the block is not picked up. \nI can only unstack a block from on top of another block if the block I am unstacking was really on top of the other block. \nI can only unstack a block from on top of another block if the block I am unstacking is clear. Once I pick up or unstack a block, I am holding the block. \nI can only put down a block that I am holding. \nI can only stack a block on top of another block if I am holding the block being stacked. \nI can only stack a block on top of another block if the block onto which I am stacking the block is clear. Once I put down or stack a block, my hand becomes empty.\n\nAfter being given an initial state and an action, give the new state after performing the action.\n\n[SCENARIO 1]\n[STATE 0] I have that, the white block is clear, the cyan block is clear, the brown block is clear, the hand is empty, the white block is on top of the purple block, the purple block is on the table, the cyan block is on the table and the brown block is on the table.\n[ACTION] Unstack the white block from on top of the purple block.\n[CHANGE] The hand was empty and is now holding the white block, the white block was on top of the purple block and is now in the hand, the white block is no longer clear, and the purple block is now clear.\n[STATE 1] I have that, the purple block is clear, the cyan block is clear, the brown block is clear, the hand is holding the white block, the white block is in the hand, the purple block is on the table, the cyan block is on the table and the brown block is on the table.\n\n[SCENARIO 2]\n[STATE 0] I have that, the purple block is clear, the cyan block is clear, the white block is clear, the hand is empty, the cyan block is on top of the brown block, the purple block is on the table, the white block is on the table and the brown block is on the table.\n[ACTION] Unstack the cyan block from on top of the brown block.\n[CHANGE] The hand was empty and is now holding the cyan block, the cyan block was on top of the brown block and is now in the hand, the cyan block is no longer clear, and the brown block is now clear.\n[STATE 1] I have that, the purple block is clear, the brown block is clear, the cyan block is in the hand, the white block is clear, the hand is holding the cyan block, the purple block is on the table, the white block is on the table and the brown block is on the table.\n\n[SCENARIO 3]\n[STATE 0] I have that, the blue block is clear, the orange block is clear, the hand is empty, the blue block is on top of the red block, the red block is on the table and the orange block is on the table.\n[ACTION] Unstack the blue block from on top of the red block.\n[CHANGE]']
+generate takes: 0.5965893268585205s, n_tokens: 188, speed: 0.0031733474832900026s/token
+output: ['The hand was empty and is now holding the blue block, the blue block was on top of the red block and is now in the hand, the blue block is no longer clear, and the red block is now clear.']
+============================================================apply changestart============================================================
+传入apply_change的参数：state: the blue block is clear, the orange block is clear, the hand is empty, the blue block is on top of the red block, the red block is on the table and the orange block is on the table., change: The hand was empty and is now holding the blue block, the blue block was on top of the red block and is now in the hand, the blue block is no longer clear, and the red block is now clear.
+states: the blue block is clear, the orange block is clear, the hand is empty, the blue block is on top of the red block, the red block is on the table , and the orange block is on the table.
+changes: ['the hand was empty and is now holding the blue block', 'the blue block was on top of the red block and is now in the hand', 'the blue block is no longer clear', 'and the red block is now clear']
+old: empty
+new: holding the blue block
+返回：the blue block is in the hand, the orange block is clear, the red block is clear, the hand is holding the blue block, the orange block is on the table, and the red block is on the table.
+============================================================apply change结束！============================================================
+Goals: ['the blue block is on top of the orange block'], meetings: [False], percentage: 0.0
+goal_reward: 0.0
+Goals: ['the blue block is on top of the orange block'], meetings: [False], percentage: 0.0
+
+node_id: 1
+action: stack the blue block on top of the orange block
+control: 1
+verifier: 0
+sc_mcts: -640.1925659179688
+loglikelihood: -639.4144287109375
+self_eval: -0.88427734375
+cd_logprobs_diff: -130.3125
+kl_div_mean: -0.0011529922485351562
+kl_div_batchmean: -147.875
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -1.2099742889404297e-05
+js_div_batchmean: 0.10614013671875
+js_div_mean: 7.748603820800781e-07
+reward_model: sc_mcts
+goal_reward: 0.0
+
+node_id: 1
+action: stack the blue block on top of the red block
+control: 1
+verifier: 0
+sc_mcts: -645.961181640625
+loglikelihood: -644.69482421875
+self_eval: -1.6435546875
+cd_logprobs_diff: -151.2890625
+kl_div_mean: -0.0011529922485351562
+kl_div_batchmean: -147.875
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -8.285045623779297e-06
+js_div_batchmean: 0.377197265625
+js_div_mean: 2.950429916381836e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+node_id: 1
+action: put down the blue block
+control: 1
+verifier: 0
+sc_mcts: -644.2832641601562
+loglikelihood: -644.2901000976562
+self_eval: -0.62353515625
+cd_logprobs_diff: -59.3125
+kl_div_mean: -0.0005764961242675781
+kl_div_batchmean: -73.9375
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -1.6033649444580078e-05
+js_div_batchmean: 0.63037109375
+js_div_mean: 4.887580871582031e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+input: ['I am playing with a set of blocks where I need to arrange the blocks into stacks. Here are the actions I can do \n\nPick up a block \nUnstack a block from on top of another block \nPut down a block \nStack a block on top of another block \n\nI have the following restrictions on my actions:\nI can only pick up or unstack one block at a time. \nI can only pick up or unstack a block if my hand is empty. \nI can only pick up a block if the block is on the table and the block is clear. A block is clear if the block has no other blocks on top of it and if the block is not picked up. \nI can only unstack a block from on top of another block if the block I am unstacking was really on top of the other block. \nI can only unstack a block from on top of another block if the block I am unstacking is clear. Once I pick up or unstack a block, I am holding the block. \nI can only put down a block that I am holding. \nI can only stack a block on top of another block if I am holding the block being stacked. \nI can only stack a block on top of another block if the block onto which I am stacking the block is clear. Once I put down or stack a block, my hand becomes empty.\n\nAfter being given an initial state and an action, give the new state after performing the action.\n\n[SCENARIO 1]\n[STATE 0] I have that, the white block is clear, the purple block is clear, the cyan block is in the hand, the brown block is clear, the hand is holding the cyan block, the white block is on the table, the purple block is on the table, and the brown block is on the table.\n[ACTION] Stack the cyan block on top of the brown block.\n[CHANGE] The hand was holding the cyan block and is now empty, the cyan block was in the hand and is now on top of the brown block, the brown block is no longer clear, and the cyan block is now clear.\n[STATE 1] I have that, the cyan block is clear, the purple block is clear, the white block is clear, the hand is empty, the cyan block is on top of the brown block, the brown block is on the table, the purple block is on the table, and the white block is on the table.\n\n[SCENARIO 2]\n[STATE 0] I have that, the purple block is clear, the black block is in the hand, the white block is clear, the hand is holding the black block, the white block is on top of the brown block, the purple block is on the table, and the brown block is on the table.\n[ACTION] Stack the black block on top of the purple block.\n[CHANGE] The hand was holding the black block and is now empty, the black block was in the hand and is now on top of the purple block, the purple block is no longer clear, and the black block is now clear.\n[STATE 1] I have that, the black block is clear, the white block is clear, the hand is empty, the black block is on top of the purple block, the white block is on top of the brown block, the brown block is on the table, and the purple block is on the table.\n\n[SCENARIO 3]\n[STATE 0] I have that, the blue block is in the hand, the orange block is clear, the red block is clear, the hand is holding the blue block, the orange block is on the table, and the red block is on the table.\n[ACTION] Stack the blue block on top of the orange block.\n[CHANGE]']
+generate takes: 0.574408769607544s, n_tokens: 194, speed: 0.002960869946430639s/token
+output: ['The hand was holding the blue block and is now empty, the blue block was in the hand and is now on top of the orange block, the orange block is no longer clear, and the blue block is now clear.']
+============================================================apply changestart============================================================
+传入apply_change的参数：state: the blue block is in the hand, the orange block is clear, the red block is clear, the hand is holding the blue block, the orange block is on the table, and the red block is on the table., change: The hand was holding the blue block and is now empty, the blue block was in the hand and is now on top of the orange block, the orange block is no longer clear, and the blue block is now clear.
+states: the blue block is in the hand, the orange block is clear, the red block is clear, the hand is holding the blue block, the orange block is on the table, and the red block is on the table.
+changes: ['the hand was holding the blue block and is now empty', 'the blue block was in the hand and is now on top of the orange block', 'the orange block is no longer clear', 'and the blue block is now clear']
+old: holding the blue block
+new: empty
+返回：the blue block is clear, the red block is clear, the hand is empty, the blue block is on top of the orange block, the orange block is on the table, and the red block is on the table.
+============================================================apply change结束！============================================================
+Goals: ['the blue block is on top of the orange block'], meetings: [True], percentage: 1.0
+goal_reward: 100
+Goals: ['the blue block is on top of the orange block'], meetings: [True], percentage: 1.0
+
+iteration: 1/10
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 0.0
+Child ID: 1, UCT Value: -590.2772827148438
+Q_value: -320.4102478027344, w_exp: 50, exploration_term: 0.0
+Child ID: 2, UCT Value: -320.4102478027344
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 0.0
+Q_value: -320.4102478027344, w_exp: 50, exploration_term: 0.0
+
+input: ['I am playing with a set of blocks where I need to arrange the blocks into stacks. Here are the actions I can do \n\nPick up a block \nUnstack a block from on top of another block \nPut down a block \nStack a block on top of another block \n\nI have the following restrictions on my actions:\nI can only pick up or unstack one block at a time. \nI can only pick up or unstack a block if my hand is empty. \nI can only pick up a block if the block is on the table and the block is clear. A block is clear if the block has no other blocks on top of it and if the block is not picked up. \nI can only unstack a block from on top of another block if the block I am unstacking was really on top of the other block. \nI can only unstack a block from on top of another block if the block I am unstacking is clear. Once I pick up or unstack a block, I am holding the block. \nI can only put down a block that I am holding. \nI can only stack a block on top of another block if I am holding the block being stacked. \nI can only stack a block on top of another block if the block onto which I am stacking the block is clear. Once I put down or stack a block, my hand becomes empty.\n\nAfter being given an initial state and an action, give the new state after performing the action.\n\n[SCENARIO 1]\n[STATE 0] I have that, the white block is clear, the cyan block is clear, the brown block is clear, the hand is empty, the white block is on top of the purple block, the purple block is on the table, the cyan block is on the table and the brown block is on the table.\n[ACTION] Pick up the brown block.\n[CHANGE] The hand was empty and is now holding the brown block, the brown block was on the table and is now in the hand, and the brown block is no longer clear.\n[STATE 1] I have that, the white block is clear, the cyan block is clear, the brown block is in the hand, the hand is holding the brown block, the white block is on top of the purple block, the purple block is on the table and the cyan block is on the table.\n\n[SCENARIO 2]\n[STATE 0] I have that, the purple block is clear, the cyan block is clear, the white block is clear, the hand is empty, the white block is on top of the brown block, the purple block is on the table, the cyan block is on the table and the brown block is on the table.\n[ACTION] Pick up the cyan block.\n[CHANGE] The hand was empty and is now holding the cyan block, the cyan block was on the table and is now in the hand, and the cyan block is no longer clear.\n[STATE 1] I have that, the cyan block is in the hand, the white block is clear, the purple block is clear, the hand is holding the cyan block, the white block is on top of the brown block, the purple block is on the table and the brown block is on the table.\n\n[SCENARIO 3]\n[STATE 0] I have that, the blue block is clear, the orange block is clear, the hand is empty, the blue block is on top of the red block, the red block is on the table and the orange block is on the table.\n[ACTION] Pick up the orange block.\n[CHANGE]']
+generate takes: 0.48593878746032715s, n_tokens: 155, speed: 0.0031350889513569492s/token
+output: ['The hand was empty and is now holding the orange block, the orange block was on the table and is now in the hand, and the orange block is no longer clear.']
+============================================================apply changestart============================================================
+传入apply_change的参数：state: the blue block is clear, the orange block is clear, the hand is empty, the blue block is on top of the red block, the red block is on the table and the orange block is on the table., change: The hand was empty and is now holding the orange block, the orange block was on the table and is now in the hand, and the orange block is no longer clear.
+states: the blue block is clear, the orange block is clear, the hand is empty, the blue block is on top of the red block, the red block is on the table , and the orange block is on the table.
+changes: ['the hand was empty and is now holding the orange block', 'the orange block was on the table and is now in the hand', 'and the orange block is no longer clear']
+old: empty
+new: holding the orange block
+返回：the blue block is clear, the orange block is in the hand, the hand is holding the orange block, the blue block is on top of the red block, and the red block is on the table.
+============================================================apply change结束！============================================================
+Goals: ['the blue block is on top of the orange block'], meetings: [False], percentage: 0.0
+goal_reward: 0.0
+Goals: ['the blue block is on top of the orange block'], meetings: [False], percentage: 0.0
+
+node_id: 2
+action: stack the orange block on top of the blue block
+control: 1
+verifier: 0
+sc_mcts: -641.1170654296875
+loglikelihood: -640.4879150390625
+self_eval: -0.84814453125
+cd_logprobs_diff: -133.15625
+kl_div_mean: -0.0011529922485351562
+kl_div_batchmean: -147.875
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -1.341104507446289e-05
+js_div_batchmean: 0.218994140625
+js_div_mean: 1.6987323760986328e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+node_id: 2
+action: put down the orange block
+control: 1
+verifier: 0
+sc_mcts: -645.2509155273438
+loglikelihood: -644.9691772460938
+self_eval: -0.5478515625
+cd_logprobs_diff: -58.609375
+kl_div_mean: -0.0005764961242675781
+kl_div_batchmean: -73.9375
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -1.3887882232666016e-05
+js_div_batchmean: 0.26611328125
+js_div_mean: 2.0563602447509766e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+input: ['I am playing with a set of blocks where I need to arrange the blocks into stacks. Here are the actions I can do \n\nPick up a block \nUnstack a block from on top of another block \nPut down a block \nStack a block on top of another block \n\nI have the following restrictions on my actions:\nI can only pick up or unstack one block at a time. \nI can only pick up or unstack a block if my hand is empty. \nI can only pick up a block if the block is on the table and the block is clear. A block is clear if the block has no other blocks on top of it and if the block is not picked up. \nI can only unstack a block from on top of another block if the block I am unstacking was really on top of the other block. \nI can only unstack a block from on top of another block if the block I am unstacking is clear. Once I pick up or unstack a block, I am holding the block. \nI can only put down a block that I am holding. \nI can only stack a block on top of another block if I am holding the block being stacked. \nI can only stack a block on top of another block if the block onto which I am stacking the block is clear. Once I put down or stack a block, my hand becomes empty.\n\nAfter being given an initial state and an action, give the new state after performing the action.\n\n[SCENARIO 1]\n[STATE 0] I have that, the white block is clear, the purple block is clear, the cyan block is in the hand, the brown block is clear, the hand is holding the cyan block, the white block is on the table, the purple block is on the table, and the brown block is on the table.\n[ACTION] Stack the cyan block on top of the brown block.\n[CHANGE] The hand was holding the cyan block and is now empty, the cyan block was in the hand and is now on top of the brown block, the brown block is no longer clear, and the cyan block is now clear.\n[STATE 1] I have that, the cyan block is clear, the purple block is clear, the white block is clear, the hand is empty, the cyan block is on top of the brown block, the brown block is on the table, the purple block is on the table, and the white block is on the table.\n\n[SCENARIO 2]\n[STATE 0] I have that, the purple block is clear, the black block is in the hand, the white block is clear, the hand is holding the black block, the white block is on top of the brown block, the purple block is on the table, and the brown block is on the table.\n[ACTION] Stack the black block on top of the purple block.\n[CHANGE] The hand was holding the black block and is now empty, the black block was in the hand and is now on top of the purple block, the purple block is no longer clear, and the black block is now clear.\n[STATE 1] I have that, the black block is clear, the white block is clear, the hand is empty, the black block is on top of the purple block, the white block is on top of the brown block, the brown block is on the table, and the purple block is on the table.\n\n[SCENARIO 3]\n[STATE 0] I have that, the blue block is clear, the orange block is in the hand, the hand is holding the orange block, the blue block is on top of the red block, and the red block is on the table.\n[ACTION] Stack the orange block on top of the blue block.\n[CHANGE]']
+generate takes: 0.5866298675537109s, n_tokens: 196, speed: 0.0029930095283352597s/token
+output: ['The hand was holding the orange block and is now empty, the orange block was in the hand and is now on top of the blue block, the blue block is no longer clear, and the orange block is now clear.']
+============================================================apply changestart============================================================
+传入apply_change的参数：state: the blue block is clear, the orange block is in the hand, the hand is holding the orange block, the blue block is on top of the red block, and the red block is on the table., change: The hand was holding the orange block and is now empty, the orange block was in the hand and is now on top of the blue block, the blue block is no longer clear, and the orange block is now clear.
+states: the blue block is clear, the orange block is in the hand, the hand is holding the orange block, the blue block is on top of the red block, and the red block is on the table.
+changes: ['the hand was holding the orange block and is now empty', 'the orange block was in the hand and is now on top of the blue block', 'the blue block is no longer clear', 'and the orange block is now clear']
+old: holding the orange block
+new: empty
+返回：the orange block is clear, the hand is empty, the blue block is on top of the red block, the orange block is on top of the blue block, and the red block is on the table.
+============================================================apply change结束！============================================================
+Goals: ['the blue block is on top of the orange block'], meetings: [False], percentage: 0.0
+goal_reward: 0.0
+Goals: ['the blue block is on top of the orange block'], meetings: [False], percentage: 0.0
+
+iteration: 2/10
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 41.62773055788488
+Child ID: 1, UCT Value: -548.6495521569589
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 41.62773055788488
+Child ID: 2, UCT Value: -599.7651222253182
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 41.62773055788488
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 41.62773055788488
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 0.0
+Child ID: 3, UCT Value: -270.5384216308594
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 0.0
+Child ID: 4, UCT Value: -323.8023681640625
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 0.0
+Child ID: 5, UCT Value: -322.4533996582031
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 0.0
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 0.0
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 0.0
+
+iteration: 3/10
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 37.05759518418778
+Child ID: 1, UCT Value: -553.219687530656
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 52.407353698410255
+Child ID: 2, UCT Value: -588.9854990847929
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 37.05759518418778
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 52.407353698410255
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 29.435250562886868
+Child ID: 3, UCT Value: -241.1031710679725
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 41.62773055788488
+Child ID: 4, UCT Value: -282.1746376061776
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 41.62773055788488
+Child ID: 5, UCT Value: -280.82566910031824
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 29.435250562886868
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 41.62773055788488
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 41.62773055788488
+
+iteration: 4/10
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 33.988899672293634
+Child ID: 1, UCT Value: -556.2883830425501
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 58.870501125773735
+Child ID: 2, UCT Value: -582.5223516574293
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 33.988899672293634
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 58.870501125773735
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 30.257399765293087
+Child ID: 3, UCT Value: -240.2810218655663
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 52.407353698410255
+Child ID: 4, UCT Value: -271.39501446565225
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 52.407353698410255
+Child ID: 5, UCT Value: -270.0460459597929
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 30.257399765293087
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 52.407353698410255
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 52.407353698410255
+
+iteration: 5/10
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 31.71590602948799
+Child ID: 1, UCT Value: -558.5613766853558
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 63.43181205897598
+Child ID: 2, UCT Value: -577.9610407242271
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 31.71590602948799
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 63.43181205897598
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 29.435250562886868
+Child ID: 3, UCT Value: -241.1031710679725
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 58.870501125773735
+Child ID: 4, UCT Value: -264.9318670382888
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 58.870501125773735
+Child ID: 5, UCT Value: -263.5828985324294
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 29.435250562886868
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 58.870501125773735
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 58.870501125773735
+
+iteration: 6/10
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 29.931250134500353
+Child ID: 1, UCT Value: -560.3460325803434
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 66.92830995229252
+Child ID: 2, UCT Value: -574.4645428309107
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 29.931250134500353
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 66.92830995229252
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 28.36756873997224
+Child ID: 3, UCT Value: -242.17085289088715
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 63.43181205897598
+Child ID: 4, UCT Value: -260.3705561050865
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 63.43181205897598
+Child ID: 5, UCT Value: -259.02158759922713
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 28.36756873997224
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 63.43181205897598
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 63.43181205897598
+
+iteration: 7/10
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 28.47447796606136
+Child ID: 1, UCT Value: -561.8028047487824
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 69.74794170897292
+Child ID: 2, UCT Value: -571.6449110742302
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 28.47447796606136
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 69.74794170897292
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 27.32336812165897
+Child ID: 3, UCT Value: -243.2150535092004
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 66.92830995229252
+Child ID: 4, UCT Value: -256.87405821177
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 66.92830995229252
+Child ID: 5, UCT Value: -255.5250897059106
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 27.32336812165897
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 66.92830995229252
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 66.92830995229252
+
+iteration: 8/10
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 27.25174661296197
+Child ID: 1, UCT Value: -563.0255361018818
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 72.10134433004414
+Child ID: 2, UCT Value: -569.2915084531589
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 27.25174661296197
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 72.10134433004414
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 26.362244031510247
+Child ID: 3, UCT Value: -244.17617759934913
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 69.74794170897292
+Child ID: 4, UCT Value: -254.05442645508958
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 69.74794170897292
+Child ID: 5, UCT Value: -252.7054579492302
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 26.362244031510247
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 69.74794170897292
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 69.74794170897292
+
+iteration: 9/10
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 26.203676849205127
+Child ID: 1, UCT Value: -564.0736058656386
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 74.11519036837556
+Child ID: 2, UCT Value: -567.2776624148275
+============================== node selection ==============================
+Q_value: -590.2772827148438, w_exp: 50, exploration_term: 26.203676849205127
+Q_value: -641.3928527832031, w_exp: 50, exploration_term: 74.11519036837556
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 25.491674754220224
+Child ID: 3, UCT Value: -245.04674687663916
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 72.10134433004414
+Child ID: 4, UCT Value: -251.70102383401837
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 72.10134433004414
+Child ID: 5, UCT Value: -250.352055328159
+============================== node selection ==============================
+Q_value: -270.5384216308594, w_exp: 50, exploration_term: 25.491674754220224
+Q_value: -323.8023681640625, w_exp: 50, exploration_term: 72.10134433004414
+Q_value: -322.4533996582031, w_exp: 50, exploration_term: 72.10134433004414
+
+iteration: 10/10
+
+
+============================================================evaluate start============================================================
+============================================================text_to_plan_blocksworldstart============================================================
+actions_params_dict: {'pick-up': pick-up(?ob: object), 'put-down': put-down(?ob: object), 'stack': stack(?ob: object,?underob: object), 'unstack': unstack(?ob: object,?underob: object)}
+raw_actions: ['pick-up', 'put-down', 'stack', 'unstack']
+text_actions: ['pick up', 'put down', 'stack', 'unstack']
+text: unstack the blue block from on top of the red block
+stack the blue block on top of the orange block
+text (after replacing pick up with pick-up): unstack the blue block from on top of the red block
+stack the blue block on top of the orange block
+text (after replacing put down with put-down): unstack the blue block from on top of the red block
+stack the blue block on top of the orange block
+blocksworld:   3%|▎         | 1/37 [00:05<03:34,  5.95s/it]text (after replacing stack with stack): unstack the blue block from on top of the red block
+stack the blue block on top of the orange block
+text (after replacing unstack with unstack): unstack the blue block from on top of the red block
+stack the blue block on top of the orange block
+object_names: ['red block', 'blue block', 'orange block', 'yellow block', 'white block', 'magenta block', 'black block', 'cyan block', 'green block', 'violet block', 'silver block', 'gold block']
+plan: 
+readable_plan: 
+lines: ['unstack the blue block from on top of the red block', 'stack the blue block on top of the orange block']
+line: unstack the blue blockk from on top of the red blockk
+action_list: [False, False, False, True]
+action: unstack
+n_objs: 2
+objs: ['blue block', 'red block']
+readable_objs: ['blue', 'red']
+objs (mapped): ['b', 'a']
+readable_action: (unstack blue red)
+action (formatted): (unstack b a)
+plan (updated): (unstack b a)
+
+readable_plan (updated): (unstack blue red)
+
+line: stack the blue blockk on top of the orange blockk
+action_list: [False, False, True, False]
+action: stack
+n_objs: 2
+objs: ['blue block', 'orange block']
+readable_objs: ['blue', 'orange']
+objs (mapped): ['b', 'c']
+readable_action: (stack blue orange)
+action (formatted): (stack b c)
+plan (updated): (unstack b a)
+(stack b c)
+
+readable_plan (updated): (unstack blue red)
+(stack blue orange)
+
+plan: (unstack b a)
+(stack b c)
+
+[+]: Saving plan in tmp_plan.txt
+==================================================text_to_plan_blocksworld结束！==================================================
+============================================================validate_plan开始============================================================
+plan: (unstack b a)
+(stack b c)
+
+response: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Checking plan: tmp_plan.txt
+Plan executed successfully - checking goal
+Plan valid
+Final value: 2 
+
+Successful plans:
+Value: 2
+ tmp_plan.txt 2 
+
+
+============================================================validate_plan结束============================================================
+answer: {'init': 'the blue block is clear, the orange block is clear, the hand is empty, the blue block is on top of the red block, the red block is on the table and the orange block is on the table', 'goal': 'the blue block is on top of the orange block', 'plan': '\nunstack the blue block from on top of the red block\nstack the blue block on top of the orange block\n[PLAN END]\n', 'question': '\n[STATEMENT]\nAs initial conditions I have that, the blue block is clear, the orange block is clear, the hand is empty, the blue block is on top of the red block, the red block is on the table and the orange block is on the table.\nMy goal is to have that the blue block is on top of the orange block.\n\nMy plan is as follows:\n\n[PLAN]\n', 'instance_file': 'LLMs-Planning/llm_planning_analysis/instances/blocksworld/generated_basic_3/instance-96.pddl'}
+output: unstack the blue block from on top of the red block
+stack the blue block on top of the orange block
+correct: True
+============================================================evaluate end============================================================
+
+
+*****current accuracy: 1.0*****
+
+
+data idx: 1
+
+node_id: 0
+action: unstack the red block from on top of the blue block
+control: 1
+verifier: 0
+sc_mcts: -668.8983764648438
+loglikelihood: -668.9525756835938
+self_eval: -0.642578125
+cd_logprobs_diff: -154.1328125
+kl_div_mean: -0.0013828277587890625
+kl_div_batchmean: -177.375
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -3.0934810638427734e-05
+js_div_batchmean: 0.69677734375
+js_div_mean: 5.3942203521728516e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+node_id: 0
+action: unstack the orange block from on top of the yellow block
+control: 1
+verifier: 0
+sc_mcts: -669.998046875
+loglikelihood: -669.7001953125
+self_eval: -0.8310546875
+cd_logprobs_diff: -171.1015625
+kl_div_mean: -0.0013828277587890625
+kl_div_batchmean: -177.375
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -2.658367156982422e-05
+js_div_batchmean: 0.533203125
+js_div_mean: 4.1425228118896484e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+input: ['I am playing with a set of blocks where I need to arrange the blocks into stacks. Here are the actions I can do \n\nPick up a block \nUnstack a block from on top of another block \nPut down a block \nStack a block on top of another block \n\nI have the following restrictions on my actions:\nI can only pick up or unstack one block at a time. \nI can only pick up or unstack a block if my hand is empty. \nI can only pick up a block if the block is on the table and the block is clear. A block is clear if the block has no other blocks on top of it and if the block is not picked up. \nI can only unstack a block from on top of another block if the block I am unstacking was really on top of the other block. \nI can only unstack a block from on top of another block if the block I am unstacking is clear. Once I pick up or unstack a block, I am holding the block. \nI can only put down a block that I am holding. \nI can only stack a block on top of another block if I am holding the block being stacked. \nI can only stack a block on top of another block if the block onto which I am stacking the block is clear. Once I put down or stack a block, my hand becomes empty.\n\nAfter being given an initial state and an action, give the new state after performing the action.\n\n[SCENARIO 1]\n[STATE 0] I have that, the white block is clear, the cyan block is clear, the brown block is clear, the hand is empty, the white block is on top of the purple block, the purple block is on the table, the cyan block is on the table and the brown block is on the table.\n[ACTION] Unstack the white block from on top of the purple block.\n[CHANGE] The hand was empty and is now holding the white block, the white block was on top of the purple block and is now in the hand, the white block is no longer clear, and the purple block is now clear.\n[STATE 1] I have that, the purple block is clear, the cyan block is clear, the brown block is clear, the hand is holding the white block, the white block is in the hand, the purple block is on the table, the cyan block is on the table and the brown block is on the table.\n\n[SCENARIO 2]\n[STATE 0] I have that, the purple block is clear, the cyan block is clear, the white block is clear, the hand is empty, the cyan block is on top of the brown block, the purple block is on the table, the white block is on the table and the brown block is on the table.\n[ACTION] Unstack the cyan block from on top of the brown block.\n[CHANGE] The hand was empty and is now holding the cyan block, the cyan block was on top of the brown block and is now in the hand, the cyan block is no longer clear, and the brown block is now clear.\n[STATE 1] I have that, the purple block is clear, the brown block is clear, the cyan block is in the hand, the white block is clear, the hand is holding the cyan block, the purple block is on the table, the white block is on the table and the brown block is on the table.\n\n[SCENARIO 3]\n[STATE 0] I have that, the red block is clear, the orange block is clear, the hand is empty, the red block is on top of the blue block, the orange block is on top of the yellow block, the blue block is on the table and the yellow block is on the table.\n[ACTION] Unstack the red block from on top of the blue block.\n[CHANGE]']
+generate takes: 0.5882313251495361s, n_tokens: 187, speed: 0.0031456220596231877s/token
+output: ['The hand was empty and is now holding the red block, the red block was on top of the blue block and is now in the hand, the red block is no longer clear, and the blue block is now clear.']
+============================================================apply changestart============================================================
+传入apply_change的参数：state: the red block is clear, the orange block is clear, the hand is empty, the red block is on top of the blue block, the orange block is on top of the yellow block, the blue block is on the table and the yellow block is on the table., change: The hand was empty and is now holding the red block, the red block was on top of the blue block and is now in the hand, the red block is no longer clear, and the blue block is now clear.
+states: the red block is clear, the orange block is clear, the hand is empty, the red block is on top of the blue block, the orange block is on top of the yellow block, the blue block is on the table , and the yellow block is on the table.
+changes: ['the hand was empty and is now holding the red block', 'the red block was on top of the blue block and is now in the hand', 'the red block is no longer clear', 'and the blue block is now clear']
+old: empty
+new: holding the red block
+返回：the blue block is clear, the orange block is clear, the red block is in the hand, the hand is holding the red block, the orange block is on top of the yellow block, the blue block is on the table, and the yellow block is on the table.
+============================================================apply change结束！============================================================
+Goals: ['the orange block is on top of the red block'], meetings: [False], percentage: 0.0
+goal_reward: 0.0
+Goals: ['the orange block is on top of the red block'], meetings: [False], percentage: 0.0
+
+node_id: 1
+action: stack the red block on top of the blue block
+control: 1
+verifier: 0
+sc_mcts: -673.2553100585938
+loglikelihood: -672.8314819335938
+self_eval: -1.142578125
+cd_logprobs_diff: -136.890625
+kl_div_mean: -0.0011529922485351562
+kl_div_batchmean: -147.875
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -2.3305416107177734e-05
+js_div_batchmean: 0.71875
+js_div_mean: 5.602836608886719e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+node_id: 1
+action: stack the red block on top of the orange block
+control: 1
+verifier: 0
+sc_mcts: -669.4561767578125
+loglikelihood: -669.6241455078125
+self_eval: -1.1318359375
+cd_logprobs_diff: -147.6875
+kl_div_mean: -0.0011529922485351562
+kl_div_batchmean: -147.875
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -1.6868114471435547e-05
+js_div_batchmean: 1.2998046875
+js_div_mean: 1.0102987289428711e-05
+reward_model: sc_mcts
+goal_reward: 0.0
+
+node_id: 1
+action: put down the red block
+control: 1
+verifier: 0
+sc_mcts: -672.1818237304688
+loglikelihood: -672.3131713867188
+self_eval: -0.66162109375
+cd_logprobs_diff: -55.0703125
+kl_div_mean: -0.0005764961242675781
+kl_div_batchmean: -73.9375
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -1.9669532775878906e-05
+js_div_batchmean: 0.79296875
+js_div_mean: 6.16908073425293e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+input: ['I am playing with a set of blocks where I need to arrange the blocks into stacks. Here are the actions I can do \n\nPick up a block \nUnstack a block from on top of another block \nPut down a block \nStack a block on top of another block \n\nI have the following restrictions on my actions:\nI can only pick up or unstack one block at a time. \nI can only pick up or unstack a block if my hand is empty. \nI can only pick up a block if the block is on the table and the block is clear. A block is clear if the block has no other blocks on top of it and if the block is not picked up. \nI can only unstack a block from on top of another block if the block I am unstacking was really on top of the other block. \nI can only unstack a block from on top of another block if the block I am unstacking is clear. Once I pick up or unstack a block, I am holding the block. \nI can only put down a block that I am holding. \nI can only stack a block on top of another block if I am holding the block being stacked. \nI can only stack a block on top of another block if the block onto which I am stacking the block is clear. Once I put down or stack a block, my hand becomes empty.\n\nAfter being given an initial state and an action, give the new state after performing the action.\n\n[SCENARIO 1]\n[STATE 0] I have that, the white block is clear, the purple block is clear, the cyan block is in the hand, the brown block is clear, the hand is holding the cyan block, the white block is on the table, the purple block is on the table, and the brown block is on the table.\n[ACTION] Stack the cyan block on top of the brown block.\n[CHANGE] The hand was holding the cyan block and is now empty, the cyan block was in the hand and is now on top of the brown block, the brown block is no longer clear, and the cyan block is now clear.\n[STATE 1] I have that, the cyan block is clear, the purple block is clear, the white block is clear, the hand is empty, the cyan block is on top of the brown block, the brown block is on the table, the purple block is on the table, and the white block is on the table.\n\n[SCENARIO 2]\n[STATE 0] I have that, the purple block is clear, the black block is in the hand, the white block is clear, the hand is holding the black block, the white block is on top of the brown block, the purple block is on the table, and the brown block is on the table.\n[ACTION] Stack the black block on top of the purple block.\n[CHANGE] The hand was holding the black block and is now empty, the black block was in the hand and is now on top of the purple block, the purple block is no longer clear, and the black block is now clear.\n[STATE 1] I have that, the black block is clear, the white block is clear, the hand is empty, the black block is on top of the purple block, the white block is on top of the brown block, the brown block is on the table, and the purple block is on the table.\n\n[SCENARIO 3]\n[STATE 0] I have that, the blue block is clear, the orange block is clear, the red block is in the hand, the hand is holding the red block, the orange block is on top of the yellow block, the blue block is on the table, and the yellow block is on the table.\n[ACTION] Stack the red block on top of the orange block.\n[CHANGE]']
+generate takes: 0.6171417236328125s, n_tokens: 191, speed: 0.0032311085006953536s/token
+output: ['The hand was holding the red block and is now empty, the red block was in the hand and is now on top of the orange block, the orange block is no longer clear, and the red block is now clear.']
+============================================================apply changestart============================================================
+传入apply_change的参数：state: the blue block is clear, the orange block is clear, the red block is in the hand, the hand is holding the red block, the orange block is on top of the yellow block, the blue block is on the table, and the yellow block is on the table., change: The hand was holding the red block and is now empty, the red block was in the hand and is now on top of the orange block, the orange block is no longer clear, and the red block is now clear.
+states: the blue block is clear, the orange block is clear, the red block is in the hand, the hand is holding the red block, the orange block is on top of the yellow block, the blue block is on the table, and the yellow block is on the table.
+changes: ['the hand was holding the red block and is now empty', 'the red block was in the hand and is now on top of the orange block', 'the orange block is no longer clear', 'and the red block is now clear']
+old: holding the red block
+new: empty
+返回：the blue block is clear, the red block is clear, the hand is empty, the orange block is on top of the yellow block, the red block is on top of the orange block, the blue block is on the table, and the yellow block is on the table.
+============================================================apply change结束！============================================================
+Goals: ['the orange block is on top of the red block'], meetings: [False], percentage: 0.0
+goal_reward: 0.0
+Goals: ['the orange block is on top of the red block'], meetings: [False], percentage: 0.0
+
+iteration: 1/10
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 0.0
+Child ID: 1, UCT Value: -670.0644836425781
+Q_value: -335.41455078125, w_exp: 50, exploration_term: 0.0
+Child ID: 2, UCT Value: -335.41455078125
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 0.0
+Q_value: -335.41455078125, w_exp: 50, exploration_term: 0.0
+
+input: ['I am playing with a set of blocks where I need to arrange the blocks into stacks. Here are the actions I can do \n\nPick up a block \nUnstack a block from on top of another block \nPut down a block \nStack a block on top of another block \n\nI have the following restrictions on my actions:\nI can only pick up or unstack one block at a time. \nI can only pick up or unstack a block if my hand is empty. \nI can only pick up a block if the block is on the table and the block is clear. A block is clear if the block has no other blocks on top of it and if the block is not picked up. \nI can only unstack a block from on top of another block if the block I am unstacking was really on top of the other block. \nI can only unstack a block from on top of another block if the block I am unstacking is clear. Once I pick up or unstack a block, I am holding the block. \nI can only put down a block that I am holding. \nI can only stack a block on top of another block if I am holding the block being stacked. \nI can only stack a block on top of another block if the block onto which I am stacking the block is clear. Once I put down or stack a block, my hand becomes empty.\n\nAfter being given an initial state and an action, give the new state after performing the action.\n\n[SCENARIO 1]\n[STATE 0] I have that, the white block is clear, the cyan block is clear, the brown block is clear, the hand is empty, the white block is on top of the purple block, the purple block is on the table, the cyan block is on the table and the brown block is on the table.\n[ACTION] Unstack the white block from on top of the purple block.\n[CHANGE] The hand was empty and is now holding the white block, the white block was on top of the purple block and is now in the hand, the white block is no longer clear, and the purple block is now clear.\n[STATE 1] I have that, the purple block is clear, the cyan block is clear, the brown block is clear, the hand is holding the white block, the white block is in the hand, the purple block is on the table, the cyan block is on the table and the brown block is on the table.\n\n[SCENARIO 2]\n[STATE 0] I have that, the purple block is clear, the cyan block is clear, the white block is clear, the hand is empty, the cyan block is on top of the brown block, the purple block is on the table, the white block is on the table and the brown block is on the table.\n[ACTION] Unstack the cyan block from on top of the brown block.\n[CHANGE] The hand was empty and is now holding the cyan block, the cyan block was on top of the brown block and is now in the hand, the cyan block is no longer clear, and the brown block is now clear.\n[STATE 1] I have that, the purple block is clear, the brown block is clear, the cyan block is in the hand, the white block is clear, the hand is holding the cyan block, the purple block is on the table, the white block is on the table and the brown block is on the table.\n\n[SCENARIO 3]\n[STATE 0] I have that, the red block is clear, the orange block is clear, the hand is empty, the red block is on top of the blue block, the orange block is on top of the yellow block, the blue block is on the table and the yellow block is on the table.\n[ACTION] Unstack the orange block from on top of the yellow block.\n[CHANGE]']
+generate takes: 0.595083475112915s, n_tokens: 200, speed: 0.0029754173755645753s/token
+output: ['The hand was empty and is now holding the orange block, the orange block was on top of the yellow block and is now in the hand, the orange block is no longer clear, and the yellow block is now clear.']
+============================================================apply changestart============================================================
+传入apply_change的参数：state: the red block is clear, the orange block is clear, the hand is empty, the red block is on top of the blue block, the orange block is on top of the yellow block, the blue block is on the table and the yellow block is on the table., change: The hand was empty and is now holding the orange block, the orange block was on top of the yellow block and is now in the hand, the orange block is no longer clear, and the yellow block is now clear.
+states: the red block is clear, the orange block is clear, the hand is empty, the red block is on top of the blue block, the orange block is on top of the yellow block, the blue block is on the table , and the yellow block is on the table.
+changes: ['the hand was empty and is now holding the orange block', 'the orange block was on top of the yellow block and is now in the hand', 'the orange block is no longer clear', 'and the yellow block is now clear']
+old: empty
+new: holding the orange block
+返回：the orange block is in the hand, the red block is clear, the yellow block is clear, the hand is holding the orange block, the red block is on top of the blue block, the blue block is on the table, and the yellow block is on the table.
+============================================================apply change结束！============================================================
+Goals: ['the orange block is on top of the red block'], meetings: [False], percentage: 0.0
+goal_reward: 0.0
+Goals: ['the orange block is on top of the red block'], meetings: [False], percentage: 0.0
+
+node_id: 2
+action: stack the orange block on top of the red block
+control: 1
+verifier: 0
+sc_mcts: -670.417724609375
+loglikelihood: -669.955810546875
+self_eval: -0.5947265625
+cd_logprobs_diff: -136.671875
+kl_div_mean: -0.0011529922485351562
+kl_div_batchmean: -147.875
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -7.987022399902344e-06
+js_div_batchmean: 0.1328125
+js_div_mean: 1.0132789611816406e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+node_id: 2
+action: stack the orange block on top of the yellow block
+control: 1
+verifier: 0
+sc_mcts: -678.58837890625
+loglikelihood: -678.04736328125
+self_eval: -0.884765625
+cd_logprobs_diff: -162.125
+kl_div_mean: -0.0011529922485351562
+kl_div_batchmean: -147.875
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -7.987022399902344e-06
+js_div_batchmean: 0.34375
+js_div_mean: 2.682209014892578e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+node_id: 2
+action: put down the orange block
+control: 1
+verifier: 0
+sc_mcts: -674.7662353515625
+loglikelihood: -674.2857666015625
+self_eval: -0.88037109375
+cd_logprobs_diff: -56.015625
+kl_div_mean: -0.0005764961242675781
+kl_div_batchmean: -73.9375
+js_div_clamp_batchmean: 0
+js_div_clamp_mean: -1.615285873413086e-05
+js_div_batchmean: 0.39990234375
+js_div_mean: 3.129243850708008e-06
+reward_model: sc_mcts
+goal_reward: 0.0
+
+input: ['I am playing with a set of blocks where I need to arrange the blocks into stacks. Here are the actions I can do \n\nPick up a block \nUnstack a block from on top of another block \nPut down a block \nStack a block on top of another block \n\nI have the following restrictions on my actions:\nI can only pick up or unstack one block at a time. \nI can only pick up or unstack a block if my hand is empty. \nI can only pick up a block if the block is on the table and the block is clear. A block is clear if the block has no other blocks on top of it and if the block is not picked up. \nI can only unstack a block from on top of another block if the block I am unstacking was really on top of the other block. \nI can only unstack a block from on top of another block if the block I am unstacking is clear. Once I pick up or unstack a block, I am holding the block. \nI can only put down a block that I am holding. \nI can only stack a block on top of another block if I am holding the block being stacked. \nI can only stack a block on top of another block if the block onto which I am stacking the block is clear. Once I put down or stack a block, my hand becomes empty.\n\nAfter being given an initial state and an action, give the new state after performing the action.\n\n[SCENARIO 1]\n[STATE 0] I have that, the white block is clear, the purple block is clear, the cyan block is in the hand, the brown block is clear, the hand is holding the cyan block, the white block is on the table, the purple block is on the table, and the brown block is on the table.\n[ACTION] Stack the cyan block on top of the brown block.\n[CHANGE] The hand was holding the cyan block and is now empty, the cyan block was in the hand and is now on top of the brown block, the brown block is no longer clear, and the cyan block is now clear.\n[STATE 1] I have that, the cyan block is clear, the purple block is clear, the white block is clear, the hand is empty, the cyan block is on top of the brown block, the brown block is on the table, the purple block is on the table, and the white block is on the table.\n\n[SCENARIO 2]\n[STATE 0] I have that, the purple block is clear, the black block is in the hand, the white block is clear, the hand is holding the black block, the white block is on top of the brown block, the purple block is on the table, and the brown block is on the table.\n[ACTION] Stack the black block on top of the purple block.\n[CHANGE] The hand was holding the black block and is now empty, the black block was in the hand and is now on top of the purple block, the purple block is no longer clear, and the black block is now clear.\n[STATE 1] I have that, the black block is clear, the white block is clear, the hand is empty, the black block is on top of the purple block, the white block is on top of the brown block, the brown block is on the table, and the purple block is on the table.\n\n[SCENARIO 3]\n[STATE 0] I have that, the orange block is in the hand, the red block is clear, the yellow block is clear, the hand is holding the orange block, the red block is on top of the blue block, the blue block is on the table, and the yellow block is on the table.\n[ACTION] Stack the orange block on top of the red block.\n[CHANGE]']
+generate takes: 0.5768847465515137s, n_tokens: 194, speed: 0.0029736327141830603s/token
+output: ['The hand was holding the orange block and is now empty, the orange block was in the hand and is now on top of the red block, the red block is no longer clear, and the orange block is now clear.']
+============================================================apply changestart============================================================
+传入apply_change的参数：state: the orange block is in the hand, the red block is clear, the yellow block is clear, the hand is holding the orange block, the red block is on top of the blue block, the blue block is on the table, and the yellow block is on the table., change: The hand was holding the orange block and is now empty, the orange block was in the hand and is now on top of the red block, the red block is no longer clear, and the orange block is now clear.
+states: the orange block is in the hand, the red block is clear, the yellow block is clear, the hand is holding the orange block, the red block is on top of the blue block, the blue block is on the table, and the yellow block is on the table.
+changes: ['the hand was holding the orange block and is now empty', 'the orange block was in the hand and is now on top of the red block', 'the red block is no longer clear', 'and the orange block is now clear']
+old: holding the orange block
+new: empty
+返回：the orange block is clear, the yellow block is clear, the hand is empty, the orange block is on top of the red block, the red block is on top of the blue block, the blue block is on the table, and the yellow block is on the table.
+============================================================apply change结束！============================================================
+Goals: ['the orange block is on top of the red block'], meetings: [True], percentage: 1.0
+goal_reward: 100
+Goals: ['the orange block is on top of the red block'], meetings: [True], percentage: 1.0
+
+iteration: 2/10
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 41.62773055788488
+Child ID: 1, UCT Value: -628.4367530846932
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 41.62773055788488
+Child ID: 2, UCT Value: -579.2930458093026
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 41.62773055788488
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 41.62773055788488
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 0.0
+Child ID: 6, UCT Value: -285.5062255859375
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 0.0
+Child ID: 7, UCT Value: -339.736572265625
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 0.0
+Child ID: 8, UCT Value: -337.82330322265625
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 0.0
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 0.0
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 0.0
+
+iteration: 3/10
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 52.407353698410255
+Child ID: 1, UCT Value: -617.6571299441679
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 37.05759518418778
+Child ID: 2, UCT Value: -583.8631811829997
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 52.407353698410255
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 37.05759518418778
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 29.435250562886868
+Child ID: 6, UCT Value: -256.0709750230506
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 41.62773055788488
+Child ID: 7, UCT Value: -298.1088417077401
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 41.62773055788488
+Child ID: 8, UCT Value: -296.19557266477136
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 29.435250562886868
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 41.62773055788488
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 41.62773055788488
+
+iteration: 4/10
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 58.870501125773735
+Child ID: 1, UCT Value: -611.1939825168043
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 33.988899672293634
+Child ID: 2, UCT Value: -586.9318766948938
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 58.870501125773735
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 33.988899672293634
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 30.257399765293087
+Child ID: 6, UCT Value: -255.2488258206444
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 52.407353698410255
+Child ID: 7, UCT Value: -287.32921856721475
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 52.407353698410255
+Child ID: 8, UCT Value: -285.415949524246
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 30.257399765293087
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 52.407353698410255
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 52.407353698410255
+
+iteration: 5/10
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 63.43181205897598
+Child ID: 1, UCT Value: -606.6326715836021
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 31.71590602948799
+Child ID: 2, UCT Value: -589.2048703376995
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 63.43181205897598
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 31.71590602948799
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 29.435250562886868
+Child ID: 6, UCT Value: -256.0709750230506
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 58.870501125773735
+Child ID: 7, UCT Value: -280.8660711398513
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 58.870501125773735
+Child ID: 8, UCT Value: -278.9528020968825
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 29.435250562886868
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 58.870501125773735
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 58.870501125773735
+
+iteration: 6/10
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 66.92830995229252
+Child ID: 1, UCT Value: -603.1361736902857
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 29.931250134500353
+Child ID: 2, UCT Value: -590.9895262326871
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 66.92830995229252
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 29.931250134500353
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 28.36756873997224
+Child ID: 6, UCT Value: -257.1386568459653
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 63.43181205897598
+Child ID: 7, UCT Value: -276.304760206649
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 63.43181205897598
+Child ID: 8, UCT Value: -274.39149116368026
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 28.36756873997224
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 63.43181205897598
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 63.43181205897598
+
+iteration: 7/10
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 69.74794170897292
+Child ID: 1, UCT Value: -600.3165419336052
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 28.47447796606136
+Child ID: 2, UCT Value: -592.4462984011261
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 69.74794170897292
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 28.47447796606136
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 27.32336812165897
+Child ID: 6, UCT Value: -258.1828574642785
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 66.92830995229252
+Child ID: 7, UCT Value: -272.8082623133325
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 66.92830995229252
+Child ID: 8, UCT Value: -270.8949932703637
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 27.32336812165897
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 66.92830995229252
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 66.92830995229252
+
+iteration: 8/10
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 72.10134433004414
+Child ID: 1, UCT Value: -597.9631393125339
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 27.25174661296197
+Child ID: 2, UCT Value: -593.6690297542256
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 72.10134433004414
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 27.25174661296197
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 26.362244031510247
+Child ID: 6, UCT Value: -259.1439815544272
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 69.74794170897292
+Child ID: 7, UCT Value: -269.9886305566521
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 69.74794170897292
+Child ID: 8, UCT Value: -268.07536151368333
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 26.362244031510247
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 69.74794170897292
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 69.74794170897292
+
+iteration: 9/10
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 74.11519036837556
+Child ID: 1, UCT Value: -595.9492932742025
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 26.203676849205127
+Child ID: 2, UCT Value: -594.7170995179823
+============================== node selection ==============================
+Q_value: -670.0644836425781, w_exp: 50, exploration_term: 74.11519036837556
+Q_value: -620.9207763671875, w_exp: 50, exploration_term: 26.203676849205127
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 25.491674754220224
+Child ID: 6, UCT Value: -260.01455083171726
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 72.10134433004414
+Child ID: 7, UCT Value: -267.6352279355809
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 72.10134433004414
+Child ID: 8, UCT Value: -265.7219588926121
+============================== node selection ==============================
+Q_value: -285.5062255859375, w_exp: 50, exploration_term: 25.491674754220224
+Q_value: -339.736572265625, w_exp: 50, exploration_term: 72.10134433004414
+Q_value: -337.82330322265625, w_exp: 50, exploration_term: 72.10134433004414
+
+iteration: 10/10
+
+
+============================================================evaluate start============================================================
+============================================================text_to_plan_blocksworldstart============================================================
+actions_params_dict: {'pick-up': pick-up(?ob: object), 'put-down': put-down(?ob: object), 'stack': stack(?ob: object,?underob: object), 'unstack': unstack(?ob: object,?underob: object)}
+raw_actions: ['pick-up', 'put-down', 'stack', 'unstack']
+text_actions: ['pick up', 'put down', 'stack', 'unstack']
+text: unstack the orange block from on top of the yellow block
+stack the orange block on top of the red block
+blocksworld:   5%|▌         | 2/37 [00:12<03:44,  6.40s/it]
